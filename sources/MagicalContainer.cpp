@@ -2,18 +2,15 @@
 using namespace std;
 using namespace ariel;
 
-// MagicalContainer::MagicalContainer();
-
 
 MagicalContainer::MagicalContainer(MagicalContainer& other) : elements(other.elements) {}
 
-MagicalContainer& MagicalContainer::operator=(const MagicalContainer& other) {
+MagicalContainer& MagicalContainer::operator=(MagicalContainer& other) {
     if (&other != this) {
         elements = other.elements;
     }
     return *this;
 }
-
 
 std::vector<int>& MagicalContainer:: getElements()
 {

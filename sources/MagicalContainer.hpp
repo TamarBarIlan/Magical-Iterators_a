@@ -16,7 +16,7 @@ namespace ariel
         MagicalContainer(MagicalContainer &other);
         ~MagicalContainer() = default;
 
-        MagicalContainer &operator=(const MagicalContainer &other);
+        MagicalContainer &operator=(MagicalContainer &other);
         std::vector<int> &getElements();
         void addElement(int element);
         void removeElement(int element);
