@@ -13,11 +13,10 @@ namespace ariel
 
     public:
         MagicalContainer() = default;
-        ;
-        MagicalContainer(MagicalContainer &other) = default;
-        ;
+        MagicalContainer(MagicalContainer &other);
         ~MagicalContainer() = default;
 
+        MagicalContainer &operator=(const MagicalContainer &other);
         std::vector<int> &getElements();
         void addElement(int element);
         void removeElement(int element);
@@ -32,6 +31,7 @@ namespace ariel
             int index;
 
         public:
+            AscendingIterator() : mContainer(*(new MagicalContainer)), index(0) {}
             AscendingIterator(MagicalContainer &mContainer) : mContainer(mContainer), index(0) {}
             AscendingIterator(AscendingIterator &iter) : mContainer(iter.mContainer), index(iter.index) {}
             ~AscendingIterator() = default;
@@ -47,14 +47,14 @@ namespace ariel
                 return *this;
             }
 
-            // comparison operators 
+            // comparison operators
             bool operator==(AscendingIterator &iter)
             {
                 return this->mContainer == iter.mContainer && this->index == iter.index;
             }
             bool operator!=(AscendingIterator &iter)
             {
-                return !(*this == iter);
+                return !(this->index == iter.index);
             }
             bool operator<(const AscendingIterator &iter) const
             {
@@ -66,9 +66,9 @@ namespace ariel
             }
 
             // dereference operator
-            int operator*()
+            int &operator*()
             {
-                return false;
+                return mContainer.getElements()[static_cast<std::vector<int>::size_type>(index)];
             }
 
             // pre-increment operator
@@ -77,16 +77,150 @@ namespace ariel
                 index++;
                 return *this;
             }
-            int begin()
+            AscendingIterator &begin()
             {
-                return 0;
+                index = 0;
+                return *this;
             }
-            int end()
+            AscendingIterator &end()
             {
-                return 0;
+                index = mContainer.getElements().size();
+                return *this;
             }
 
         }; // AscendingIterator
+
+        class SideCrossIterator
+        {
+        private:
+            MagicalContainer &mContainer;
+            int index;
+
+        public:
+            SideCrossIterator() : mContainer(*(new MagicalContainer)), index(0) {}
+            SideCrossIterator(MagicalContainer &mContainer) : mContainer(mContainer), index(0) {}
+            SideCrossIterator(SideCrossIterator &iter) : mContainer(iter.mContainer), index(iter.index) {}
+            ~SideCrossIterator() = default;
+
+            // assignment operator
+            SideCrossIterator &operator=(SideCrossIterator &iter)
+            {
+                if (this != &iter)
+                {
+                    mContainer = iter.mContainer;
+                    index = iter.index;
+                }
+                return *this;
+            }
+
+            // comparison operators
+            bool operator==(SideCrossIterator &iter)
+            {
+                return this->mContainer == iter.mContainer && this->index == iter.index;
+            }
+            bool operator!=(SideCrossIterator &iter)
+            {
+                return !(*this == iter);
+            }
+            bool operator<(SideCrossIterator &iter)
+            {
+                return false;
+            }
+            bool operator>(SideCrossIterator &iter)
+            {
+                return false;
+            }
+
+            // dereference operator
+            int &operator*()
+            {
+                return mContainer.getElements()[static_cast<std::vector<int>::size_type>(index)];
+            }
+
+            // pre-increment operator
+            SideCrossIterator &operator++()
+            {
+                index++;
+                return *this;
+            }
+            SideCrossIterator &begin()
+            {
+                index = 0;
+                return *this;
+            }
+            SideCrossIterator &end()
+            {
+                index = mContainer.getElements().size();
+                return *this;
+            }
+
+        }; // SideCrossIterator
+
+        class PrimeIterator
+        {
+        private:
+            MagicalContainer &mContainer;
+            int index;
+
+        public:
+            PrimeIterator() : mContainer(*(new MagicalContainer)), index(0) {}
+            PrimeIterator(MagicalContainer &mContainer) : mContainer(mContainer), index(0) {}
+            PrimeIterator(PrimeIterator &iter) : mContainer(iter.mContainer), index(iter.index) {}
+            ~PrimeIterator() = default;
+
+            // assignment operator
+            PrimeIterator &operator=(PrimeIterator &iter)
+            {
+                if (this != &iter)
+                {
+                    mContainer = iter.mContainer;
+                    index = iter.index;
+                }
+                return *this;
+            }
+
+            // comparison operators
+            bool operator==(PrimeIterator &iter)
+            {
+                return this->mContainer == iter.mContainer && this->index == iter.index;
+            }
+            bool operator!=(PrimeIterator &iter)
+            {
+                return !(*this == iter);
+            }
+            bool operator<(PrimeIterator &iter)
+            {
+                return false;
+            }
+            bool operator>(PrimeIterator &iter)
+            {
+                return false;
+            }
+
+            // dereference operator
+            int &operator*()
+            {
+                return mContainer.getElements()[static_cast<std::vector<int>::size_type>(index)];
+            }
+
+            // pre-increment operator
+            PrimeIterator &operator++()
+            {
+                index++;
+                return *this;
+            }
+            PrimeIterator &begin()
+            {
+                index = 0;
+                return *this;
+            }
+            PrimeIterator &end()
+            {
+                index = mContainer.getElements().size();
+                return *this;
+            }
+
+        }; // PrimeIterator
 
     }; // MagicalContainer
 

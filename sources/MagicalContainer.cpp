@@ -2,9 +2,18 @@
 using namespace std;
 using namespace ariel;
 
-MagicalContainer::MagicalContainer() = default;
-MagicalContainer::MagicalContainer(MagicalContainer &other) = default;
-MagicalContainer::~MagicalContainer() = default;
+// MagicalContainer::MagicalContainer();
+
+
+MagicalContainer::MagicalContainer(MagicalContainer& other) : elements(other.elements) {}
+
+MagicalContainer& MagicalContainer::operator=(const MagicalContainer& other) {
+    if (&other != this) {
+        elements = other.elements;
+    }
+    return *this;
+}
+
 
 std::vector<int>& MagicalContainer:: getElements()
 {
@@ -28,9 +37,11 @@ int MagicalContainer:: size()
 }
 
 bool MagicalContainer::operator==(MagicalContainer &other){
-    return *this == other;
+    return this->elements == other.elements;
 }
-int MagicalContainer:: at(int index)
-{
-    return elements.at(index);
+int MagicalContainer::at(int index) {
+    if (index < 0) {
+        __throw_out_of_range("Index cannot be negative.");
+    }
+    return elements.at(static_cast<std::vector<int>::size_type>(index));
 }
