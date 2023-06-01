@@ -120,7 +120,7 @@ namespace ariel
             }
             bool operator!=(SideCrossIterator &iter)
             {
-                return !(*this == iter);
+                return !(this->index == iter.index);
             }
             bool operator<(SideCrossIterator &iter)
             {
@@ -186,7 +186,7 @@ namespace ariel
             }
             bool operator!=(PrimeIterator &iter)
             {
-                return !(*this == iter);
+                return !(this->index == iter.index);
             }
             bool operator<(PrimeIterator &iter)
             {
